@@ -59,7 +59,7 @@ public class JframeScreen extends JFrame {
                 System.out.println("How much would you like to withdraw");
                 int sum2 = scan.nextInt();
                 Calculator.setWithdrawal(sum2);
-                Calculator.setTransactionHistory(sum2);
+                Calculator.setSubtransactionHistory(sum2);
                 
             }
         });
@@ -68,7 +68,7 @@ public class JframeScreen extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.out.println("Here is your Current Balance:");
-                System.out.println(Calculator.getTotal());
+                System.out.println("$" + Calculator.getTotal());
                 
                 
                 
@@ -78,9 +78,10 @@ public class JframeScreen extends JFrame {
         button4.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.print("Here is your transaction History: ");
-                System.out.println(Calculator.getTransactionHistory());
-                
+                System.out.println("Here is your transaction History: ");
+                System.out.println("Deposits: " + "+" + Calculator.getTransactionHistory());
+                System.out.println("Withdrawals: " + "-" + Calculator.getSubtransactionHistory());
+                System.out.println("Your current balance is: $" + Calculator.getTotal());
             }
         });
 
