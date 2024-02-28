@@ -22,6 +22,7 @@ public class TotalCalculation {
     
     
     private List<Integer> transactionHistory = new ArrayList<>();
+    private List<Integer> SubtransactionHistory = new ArrayList<>();
     
     public TotalCalculation()
     {
@@ -65,9 +66,19 @@ public class TotalCalculation {
         this.transactionHistory.add(transaction);
     }
 
+    public List<Integer> getSubtransactionHistory() {
+        return SubtransactionHistory;
+    }
+
+    public void setSubtransactionHistory(int subTransaction) {
+        this.SubtransactionHistory.add(subTransaction);
+    }
+    
+    
+
     @Override
     public String toString() {
-        return "TotalCalculation{" + "transactionHistory=" + transactionHistory + '}';
+        return "TotalCalculation{" + "transactionHistory=" + "+" + transactionHistory + '}';
     }
 
     
