@@ -1,87 +1,74 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package bank.app;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Scanner;
-/**
- *
- * @author Orlan
- */
+
 public class JframeScreen extends JFrame {
-    public void TwoButtonsFrame() {
-        Scanner scan = new Scanner(System.in);
-        TotalCalculation Calculator = new TotalCalculation();
-        
-        
+
+    private TotalCalculation calculator = new TotalCalculation();
+
+    public JframeScreen() {
         // Set the layout manager
         setLayout(new FlowLayout());
 
         // Create buttons
-        
-        JButton button1 = new JButton("Deposit");
-        JButton button2 = new JButton("WithDraw");
-        JButton button3 = new JButton("View Total Balance");
-        JButton button4 = new JButton("View Transaction History");
-        
-        // Add buttons to the frame
-        add(button1);
-        add(button2);
-        add(button3);
-        add(button4);
-        
-        System.out.println("Please Enter the Starting amount you would like: ");
-        int addition = scan.nextInt();
-        Calculator.setDeposit(addition);
-        Calculator.setTransactionHistory(addition);
-                
-        button1.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {       
-                System.out.println("How much would you like to deposit");
-                int sum1 = scan.nextInt();
-                Calculator.setDeposit(sum1);
-                Calculator.setTransactionHistory(sum1);
-                
-            }
-        });
-         
+        JButton depositButton = new JButton("Deposit");
+        JButton withdrawButton = new JButton("Withdraw");
+        JButton viewBalanceButton = new JButton("View Total Balance");
+        JButton viewHistoryButton = new JButton("View Transaction History");
 
-        button2.addActionListener(new ActionListener() {
+        // Add buttons to the frame
+        add(depositButton);
+        add(withdrawButton);
+        add(viewBalanceButton);
+        add(viewHistoryButton);
+
+        depositButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println("How much would you like to withdraw");
-                int sum2 = scan.nextInt();
-                Calculator.setWithdrawal(sum2);
-                Calculator.setSubtransactionHistory(sum2);
-                
+                String depositAmountStr = JOptionPane.showInputDialog("Enter deposit amount:");
+                if (depositAmountStr != null && !depositAmountStr.isEmpty()) {
+                    int depositAmount = Integer.parseInt(depositAmountStr);
+                    calculator.setDeposit(depositAmount);
+                    calculator.setTransactionHistory(depositAmount);
+                    JOptionPane.showMessageDialog(null, "Deposit Processed");
+                }
             }
         });
-        
-        button3.addActionListener(new ActionListener() {
+
+        withdrawButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println("Here is your Current Balance:");
-                System.out.println("$" + Calculator.getTotal());
-                
-                
-                
+                String withdrawAmountStr = JOptionPane.showInputDialog("Enter withdrawal amount:");
+                if (withdrawAmountStr != null && !withdrawAmountStr.isEmpty()) {
+                    int withdrawAmount = Integer.parseInt(withdrawAmountStr);
+                    calculator.setWithdrawal(withdrawAmount);
+                    calculator.setSubtransactionHistory(withdrawAmount);
+                    JOptionPane.showMessageDialog(null, "Withdrawal Processed");
+                }
             }
         });
-        
-        button4.addActionListener(new ActionListener() {
+
+        viewBalanceButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println("Here is your transaction History: ");
-                System.out.println("Deposits: " + "+" + Calculator.getTransactionHistory());
-                System.out.println("Withdrawals: " + "-" + Calculator.getSubtransactionHistory());
-                System.out.println("Your current balance is: $" + Calculator.getTotal());
+                JOptionPane.showMessageDialog(null, "Current Balance: $" + calculator.getTotal());
+            }
+        });
+
+        viewHistoryButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                StringBuilder historyMessage = new StringBuilder("Transaction History:\n");
+                historyMessage.append("Deposits: +").append(calculator.getTransactionHistory()).append("\n");
+                historyMessage.append("Withdrawals: -").append(calculator.getSubtransactionHistory()).append("\n");
+                historyMessage.append("Current Balance: $").append(calculator.getTotal());
+                JOptionPane.showMessageDialog(null, historyMessage.toString());
             }
         });
 
