@@ -14,10 +14,9 @@ public class BankApp {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        
         JframeScreen frame = new JframeScreen(); 
-        frame.TwoButtonsFrame();
         
     }
     
 }
+
